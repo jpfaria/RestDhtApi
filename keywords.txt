@@ -1,2 +1,2 @@
-RestApi	KEYWORD1
+RestDhtApi	KEYWORD1
 dht	KEYWORD2

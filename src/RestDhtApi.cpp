@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "RestDhtApi.h"
 #include "WebServer.h"
+#include "DHT.h"
 
 RestDhtApi::RestDhtApi(WebServer &server) {
 	server.addCommand("dht", &RestDhtApi::dht);
@@ -20,6 +21,8 @@ void RestDhtApi::dht(WebServer &server, WebServer::ConnectionType type,
 
 	if (strlen(url_tail)) {
 
+		DHT dht;
+
 		while (strlen(url_tail)) {
 
 			rc = server.nextURLparam(&url_tail, name, 32, value, 32);
@@ -31,14 +34,16 @@ void RestDhtApi::dht(WebServer &server, WebServer::ConnectionType type,
 				String vl = value;
 				int v = atoi(vl.c_str());
 
-				//double hum = dht.getHumidity();
-				//double tempC = dht.getTemperature();
-				//double tempF = dht.toFahrenheit(tempC);
+				dht.setup(v);
+
+				double hum = dht.getHumidity();
+				double tempC = dht.getTemperature();
+				double tempF = dht.toFahrenheit(tempC);
 
 				Serial.println(v);
-				//Serial.println(tempC);
-				//Serial.println(tempF);
-				//Serial.println(hum);
+				Serial.println(tempC);
+				Serial.println(tempF);
+				Serial.println(hum);
 
 			}
 
