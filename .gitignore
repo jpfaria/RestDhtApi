@@ -15,4 +15,5 @@
 .cproject
 .project
 .settings
-Debug/**
+/Release
+/Libraries
