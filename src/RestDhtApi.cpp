@@ -36,14 +36,22 @@ void RestDhtApi::dht(WebServer &server, WebServer::ConnectionType type,
 
 				dht.setup(v);
 
+				dht.getMinimumSamplingPeriod();
+
 				double hum = dht.getHumidity();
 				double tempC = dht.getTemperature();
 				double tempF = dht.toFahrenheit(tempC);
 
 				Serial.println(v);
-				Serial.println(tempC);
-				Serial.println(tempF);
-				Serial.println(hum);
+
+				Serial.print(dht.getStatusString());
+				Serial.print(" - ");
+				Serial.print(hum, 1);
+				Serial.print("% - ");
+				Serial.print(tempC, 1);
+				Serial.print("C - ");
+				Serial.print(tempF, 1);
+				Serial.println("F");
 
 			}
 
